@@ -1,0 +1,21 @@
+server:
+  port: 8001
+
+spring:
+  datasource:
+    url: jdbc:mysql://xxx:3306/gyy?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: yuyang
+    password: yuyang
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/*.xml
+    - classpath*:yuyang/**/mapper/*.xml
+logging:
+  level:
+    root: info #日志配置DEBUG,INFO,WARN,ERROR
+    yuyang.garbage.search.classification: info
+  file: garbage-search.log #配置日志生成路径
+  path: /Users/zhangchaozhen #配置日志文件名称
+  #打包用
+  #path: D:\gyy\logs

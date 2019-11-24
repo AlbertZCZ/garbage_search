@@ -1,0 +1,14 @@
+2019-11-24 22:28:32 [main] INFO  y.g.s.classification.GarbageSearchApplicationTests - Starting GarbageSearchApplicationTests on zhangchaozhendeiMac.local with PID 2208 (started by zhangchaozhen in /Users/zhangchaozhen/IdeaProjects/garbage_search)
+2019-11-24 22:28:32 [main] INFO  y.g.s.classification.GarbageSearchApplicationTests - No active profile set, falling back to default profiles: default
+2019-11-24 22:28:33 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-11-24 22:28:33 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2019-11-24 22:28:33 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2019-11-24 22:28:34 [main] INFO  s.d.s.w.PropertySourcedRequestMappingHandlerMapping - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2019-11-24 22:28:34 [main] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2019-11-24 22:28:34 [main] INFO  s.d.s.web.plugins.DocumentationPluginsBootstrapper - Context refreshed
+2019-11-24 22:28:34 [main] INFO  s.d.s.web.plugins.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+2019-11-24 22:28:34 [main] INFO  s.d.spring.web.scanners.ApiListingReferenceScanner - Scanning for api listing references
+2019-11-24 22:28:35 [main] INFO  s.d.s.w.r.operation.CachingOperationNameGenerator - Generating unique operation named: updateUsingPOST_1
+2019-11-24 22:28:35 [main] INFO  y.g.s.classification.GarbageSearchApplicationTests - Started GarbageSearchApplicationTests in 3.124 seconds (JVM running for 3.865)
+2019-11-24 22:28:35 [SpringContextShutdownHook] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-11-24 22:28:35 [SpringContextShutdownHook] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
