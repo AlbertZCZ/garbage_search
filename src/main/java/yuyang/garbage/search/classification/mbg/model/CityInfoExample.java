@@ -433,6 +433,66 @@ public class CityInfoExample {
             addCriterion("district not between", value1, value2, "district");
             return (Criteria) this;
         }
+
+        public Criteria andOpendIsNull() {
+            addCriterion("opend is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpendIsNotNull() {
+            addCriterion("opend is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpendEqualTo(Integer value) {
+            addCriterion("opend =", value, "opend");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpendNotEqualTo(Integer value) {
+            addCriterion("opend <>", value, "opend");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpendGreaterThan(Integer value) {
+            addCriterion("opend >", value, "opend");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpendGreaterThanOrEqualTo(Integer value) {
+            addCriterion("opend >=", value, "opend");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpendLessThan(Integer value) {
+            addCriterion("opend <", value, "opend");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpendLessThanOrEqualTo(Integer value) {
+            addCriterion("opend <=", value, "opend");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpendIn(List<Integer> values) {
+            addCriterion("opend in", values, "opend");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpendNotIn(List<Integer> values) {
+            addCriterion("opend not in", values, "opend");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpendBetween(Integer value1, Integer value2) {
+            addCriterion("opend between", value1, value2, "opend");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpendNotBetween(Integer value1, Integer value2) {
+            addCriterion("opend not between", value1, value2, "opend");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

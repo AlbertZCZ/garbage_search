@@ -36,7 +36,7 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="yuyang.garbage.search.classification.mbg.mapper"
                              targetProject="src/main/java"/>
         <!--生成全部表tableName设为%-->
-        <table tableName="city_garbage_relationship">
+        <table tableName="city_info">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>

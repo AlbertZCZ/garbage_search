@@ -7,6 +7,7 @@ import yuyang.garbage.search.classification.mbg.mapper.GarbageInfoMapper;
 import yuyang.garbage.search.classification.mbg.model.GarbageInfo;
 import yuyang.garbage.search.classification.mbg.model.GarbageInfoExample;
 import yuyang.garbage.search.classification.service.GarbageService;
+import yuyang.garbage.search.classification.vo.GarbageAppVo;
 import yuyang.garbage.search.classification.vo.GarbageVo;
 
 import java.util.List;
@@ -22,12 +23,16 @@ public class GarbageServiceImpl implements GarbageService {
     private GarbageInfoMapper garbageInfoMapper;
 
     @Override
-    public List<GarbageInfo> search(String name) {
+    public GarbageAppVo search(String name) {
+        GarbageAppVo garbageAppVo = new GarbageAppVo();
         GarbageInfoExample example = new GarbageInfoExample();
         GarbageInfoExample.Criteria criteria = example.createCriteria();
         criteria.andIsValidEqualTo(1);
         criteria.andNameLike("%" + name + "%");
-        return garbageInfoMapper.selectByExample(example);
+        List<GarbageInfo> garbageInfos = garbageInfoMapper.selectByExample(example);
+        garbageAppVo.setGarbageInfoList(garbageInfos);
+        garbageAppVo.setSearchKey(name);
+        return garbageAppVo;
     }
 
     @Override

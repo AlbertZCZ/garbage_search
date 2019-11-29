@@ -180,7 +180,8 @@ public class AdminController {
         return CommonResult.success(cityService.search(cityInfo.getCity()));
     }
 
-    @ApiOperation("删除城市，批量删除传cityIdList 单个删除传cityId")
+
+    @ApiOperation("删除城市，批量删除传cityIdList示例{ \"cityIdList\": [ 2859,2860] }； 单个删除传cityId,示例 { \"cityId\": 2859 }")
     @RequestMapping(value = "/admin/deleteCity", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<Integer> deleteCity(@RequestBody CityParam cityParam) {
@@ -203,5 +204,13 @@ public class AdminController {
             return CommonResult.failed("城市id不能为空");
         }
         return CommonResult.success(cityService.update(cityInfo));
+    }
+
+    @ApiOperation("开放城市，批量开放传cityIdList 单个开放传cityId")
+    @RequestMapping(value = "/admin/openCity", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<Integer> openCity(@RequestBody CityParam cityParam) {
+        log.info("admin open city parms is " + JSON.toJSONString(cityParam));
+        return CommonResult.success(cityService.open(cityParam));
     }
 }

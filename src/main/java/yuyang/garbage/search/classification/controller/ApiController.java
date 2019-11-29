@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import yuyang.garbage.search.classification.mbg.model.CityInfo;
-import yuyang.garbage.search.classification.mbg.model.GarbageInfo;
 import yuyang.garbage.search.classification.mbg.model.HotTop;
 import yuyang.garbage.search.classification.service.CityService;
 import yuyang.garbage.search.classification.service.GarbageService;
 import yuyang.garbage.search.classification.service.HotTopService;
 import yuyang.garbage.search.classification.util.ClassificationUtils;
 import yuyang.garbage.search.classification.util.CommonResult;
+import yuyang.garbage.search.classification.vo.GarbageAppVo;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class ApiController {
     @ApiOperation("模糊搜索垃圾名称 \n 参数示例 {\"city\": \"北京市\",\"garbageName\":\"碎玻璃\"}")
     @RequestMapping(value = "/api/search", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<GarbageInfo>> getBrandList(@RequestBody HotTop hotTop) {
+    public CommonResult<GarbageAppVo> getBrandList(@RequestBody HotTop hotTop) {
         LOGGER.info("the garbage search request param is " + JSON.toJSONString(hotTop));
         int hotNum = hotTopService.addHot(hotTop.getCity(), hotTop.getGarbageName());
         LOGGER.info("the result of hotTop is " + hotNum);

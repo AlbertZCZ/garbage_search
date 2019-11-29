@@ -100,4 +100,31 @@ public class CityServiceImpl implements CityService {
 
         return cityInfoMapper.updateByPrimaryKey(cityInfo);
     }
+
+    @Override
+    public int open(CityParam cityParam) {
+        List<Integer> cityIdList = new ArrayList<>();
+        List<String> cityList = new ArrayList<>();
+        CityInfoExample example = new CityInfoExample();
+        if (cityParam.getCityId() != null) {
+            CityInfo cityInfo = cityInfoMapper.selectByPrimaryKey(cityParam.getCityId());
+            cityList.add(cityInfo.getCity());
+        }else if ((cityIdList = cityParam.getCityIdList()).size() > 0){
+
+            CityInfoExample.Criteria criteria = example.createCriteria();
+            criteria.andIdIn(cityIdList);
+            List<CityInfo> cityInfos = cityInfoMapper.selectByExample(example);
+            cityInfos.forEach(city -> cityList.add(city.getCity()));
+        }
+        if (cityList.size() > 0) {
+            CityInfo update = new CityInfo();
+            update.setOpend(1);
+
+            example.clear();
+            CityInfoExample.Criteria updateCriteria = example.createCriteria();
+            updateCriteria.andCityIn(cityList);
+            return cityInfoMapper.updateByExample(update,example);
+        }
+        return 0;
+    }
 }

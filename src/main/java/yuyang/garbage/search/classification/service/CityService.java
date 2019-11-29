@@ -46,4 +46,11 @@ public interface CityService {
     int delete(CityParam cityParam);
 
     int update(CityInfo cityInfo);
+
+    /**
+     * 开放城市
+     * @param cityParam
+     * @return
+     */
+    int open(CityParam cityParam);
 }

@@ -1,6 +1,7 @@
 package yuyang.garbage.search.classification.service;
 
 import yuyang.garbage.search.classification.mbg.model.GarbageInfo;
+import yuyang.garbage.search.classification.vo.GarbageAppVo;
 import yuyang.garbage.search.classification.vo.GarbageVo;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface GarbageService {
      * @param name
      * @return
      */
-    List<GarbageInfo> search(String name);
+    GarbageAppVo search(String name);
 
     /**
      * 增加垃圾

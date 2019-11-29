@@ -1,12 +1,9 @@
 package yuyang.garbage.search.classification.mbg.mapper;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import yuyang.garbage.search.classification.mbg.model.CityInfo;
 import yuyang.garbage.search.classification.mbg.model.CityInfoExample;
-
 
 public interface CityInfoMapper {
     long countByExample(CityInfoExample example);

@@ -7,6 +7,7 @@
     <result column="province" jdbcType="VARCHAR" property="province" />
     <result column="city" jdbcType="VARCHAR" property="city" />
     <result column="district" jdbcType="VARCHAR" property="district" />
+    <result column="opend" jdbcType="INTEGER" property="opend" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, city_code, province, city, district
+    id, city_code, province, city, district, opend
   </sql>
   <select id="selectByExample" parameterType="yuyang.garbage.search.classification.mbg.model.CityInfoExample" resultMap="BaseResultMap">
     select
@@ -104,9 +105,9 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into city_info (city_code, province, city, 
-      district)
+      district, opend)
     values (#{cityCode,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
-      #{district,jdbcType=VARCHAR})
+      #{district,jdbcType=VARCHAR}, #{opend,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="yuyang.garbage.search.classification.mbg.model.CityInfo">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -126,6 +127,9 @@
       <if test="district != null">
         district,
       </if>
+      <if test="opend != null">
+        opend,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="cityCode != null">
@@ -139,6 +143,9 @@
       </if>
       <if test="district != null">
         #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="opend != null">
+        #{opend,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -166,6 +173,9 @@
       <if test="record.district != null">
         district = #{record.district,jdbcType=VARCHAR},
       </if>
+      <if test="record.opend != null">
+        opend = #{record.opend,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +187,8 @@
       city_code = #{record.cityCode,jdbcType=INTEGER},
       province = #{record.province,jdbcType=VARCHAR},
       city = #{record.city,jdbcType=VARCHAR},
-      district = #{record.district,jdbcType=VARCHAR}
+      district = #{record.district,jdbcType=VARCHAR},
+      opend = #{record.opend,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +208,9 @@
       <if test="district != null">
         district = #{district,jdbcType=VARCHAR},
       </if>
+      <if test="opend != null">
+        opend = #{opend,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -205,7 +219,8 @@
     set city_code = #{cityCode,jdbcType=INTEGER},
       province = #{province,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
-      district = #{district,jdbcType=VARCHAR}
+      district = #{district,jdbcType=VARCHAR},
+      opend = #{opend,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
