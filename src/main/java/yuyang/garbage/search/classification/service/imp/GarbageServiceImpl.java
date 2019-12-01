@@ -1,5 +1,7 @@
 package yuyang.garbage.search.classification.service.imp;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -23,16 +25,12 @@ public class GarbageServiceImpl implements GarbageService {
     private GarbageInfoMapper garbageInfoMapper;
 
     @Override
-    public GarbageAppVo search(String name) {
-        GarbageAppVo garbageAppVo = new GarbageAppVo();
+    public List<GarbageInfo> search(String name) {
         GarbageInfoExample example = new GarbageInfoExample();
         GarbageInfoExample.Criteria criteria = example.createCriteria();
         criteria.andIsValidEqualTo(1);
         criteria.andNameLike("%" + name + "%");
-        List<GarbageInfo> garbageInfos = garbageInfoMapper.selectByExample(example);
-        garbageAppVo.setGarbageInfoList(garbageInfos);
-        garbageAppVo.setSearchKey(name);
-        return garbageAppVo;
+        return garbageInfoMapper.selectByExample(example);
     }
 
     @Override

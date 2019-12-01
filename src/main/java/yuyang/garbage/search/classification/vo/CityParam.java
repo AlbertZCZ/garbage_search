@@ -18,4 +18,12 @@ public class CityParam {
     @ApiModelProperty(value = "城市id集合(批量删除)")
     private List<Integer> cityIdList;
 
+    @ApiModelProperty(value = "城市名称")
+    private String city;
+
+    @ApiModelProperty(value = "每页显示条数")
+    private Integer pageSize;
+
+    @ApiModelProperty(value = "页数")
+    private Integer pageNum;
 }

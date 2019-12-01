@@ -26,6 +26,7 @@ public class CityServiceImpl implements CityService {
     @Override
     public List<CityInfo> search(String city) {
         CityInfoExample example = new CityInfoExample();
+        example.setDistinct(true);
         CityInfoExample.Criteria criteria = example.createCriteria();
         if (!StringUtils.isEmpty(city)) {
             criteria.andCityLike("%" + city + "%");

@@ -1,6 +1,8 @@
 package yuyang.garbage.search.classification.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,7 +85,7 @@ public class AdminController {
     @ApiOperation("搜索垃圾 不传city为全选")
     @RequestMapping(value = "/admin/garbageList", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<GarbageVo>> garbageList(@RequestBody GarbageVo garbageVo) {
+    public CommonResult<PageInfo<GarbageVo>> garbageList(@RequestBody GarbageVo garbageVo) {
         log.info("admin list garbage parms is " + JSON.toJSONString(garbageVo));
         if (garbageVo == null) {
             return CommonResult.failed("参数获取异常");
@@ -104,7 +106,18 @@ public class AdminController {
         }
 
         //查询垃圾
+        int pageNum = 1;
+        int pageSize = 15;
+        if (garbageVo.getPageSize() != null) {
+            pageSize = garbageVo.getPageSize();
+        }
+        if (garbageVo.getPageNum() != null) {
+            pageNum = garbageVo.getPageNum();
+        }
+        PageHelper.startPage(pageNum,pageSize);
         List<GarbageInfo> garbageInfos = garbageService.listGarbage(garbageVo,garbageIdList);
+        PageInfo<GarbageInfo> garbageInfoPageInfo = new PageInfo<>(garbageInfos);
+
         //根据城市查询垃圾的搜索次数
         List<HotTop> hotTops = hotTopService.listHotTop(garbageVo.getCity());
         List<GarbageVo> garbageVoList = new ArrayList<>();
@@ -127,7 +140,25 @@ public class AdminController {
         });
         //搜索次数降序排序
         garbageVoList.sort(Comparator.comparing(GarbageVo::getSearchNum).reversed());
-        return CommonResult.success(garbageVoList);
+        PageInfo<GarbageVo> garbageVoPageInfo = new PageInfo<>(garbageVoList);
+        garbageVoPageInfo.setPageSize(garbageInfoPageInfo.getPageSize());
+        garbageVoPageInfo.setPageNum(garbageInfoPageInfo.getPageNum());
+        garbageVoPageInfo.setEndRow(garbageInfoPageInfo.getEndRow());
+        garbageVoPageInfo.setIsFirstPage(garbageInfoPageInfo.isIsFirstPage());
+        garbageVoPageInfo.setIsLastPage(garbageInfoPageInfo.isIsLastPage());
+        garbageVoPageInfo.setHasNextPage(garbageInfoPageInfo.isHasNextPage());
+        garbageVoPageInfo.setHasPreviousPage(garbageInfoPageInfo.isHasPreviousPage());
+        garbageVoPageInfo.setNavigateFirstPage(garbageInfoPageInfo.getNavigateFirstPage());
+        garbageVoPageInfo.setNavigateLastPage(garbageInfoPageInfo.getNavigateLastPage());
+        garbageVoPageInfo.setNavigatepageNums(garbageInfoPageInfo.getNavigatepageNums());
+        garbageVoPageInfo.setNavigatePages(garbageInfoPageInfo.getNavigatePages());
+        garbageVoPageInfo.setNextPage(garbageInfoPageInfo.getNextPage());
+        garbageVoPageInfo.setPages(garbageInfoPageInfo.getPages());
+        garbageVoPageInfo.setPrePage(garbageInfoPageInfo.getPrePage());
+        garbageVoPageInfo.setSize(garbageInfoPageInfo.getSize());
+        garbageVoPageInfo.setStartRow(garbageInfoPageInfo.getStartRow());
+        garbageVoPageInfo.setTotal(garbageInfoPageInfo.getTotal());
+        return CommonResult.success(garbageVoPageInfo);
     }
 
     @ApiOperation("更新垃圾 参数示例  {\"garbageId\": \"267\",\"garbageName\":\"碎玻璃片片\"}")
@@ -172,12 +203,22 @@ public class AdminController {
     @ApiOperation("搜索城市")
     @RequestMapping(value = "/admin/cityList", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<CityInfo>> cityList(@RequestBody CityInfo cityInfo) {
-        log.info("admin list city parms is " + JSON.toJSONString(cityInfo));
-        if (cityInfo == null) {
+    public CommonResult<PageInfo<CityInfo>> cityList(@RequestBody CityParam cityParam) {
+        log.info("admin list city parms is " + JSON.toJSONString(cityParam));
+        if (cityParam == null) {
             return CommonResult.failed("获取参数错误");
         }
-        return CommonResult.success(cityService.search(cityInfo.getCity()));
+        int pageSize = 15;
+        int pageNum = 1;
+        if (cityParam.getPageSize() != null) {
+            pageSize = cityParam.getPageSize();
+        }
+        if (cityParam.getPageNum() != null) {
+            pageNum = cityParam.getPageNum();
+        }
+        PageHelper.startPage(pageNum,pageSize);
+        List<CityInfo> search = cityService.search(cityParam.getCity());
+        return CommonResult.success(new PageInfo<>(search));
     }
 
 

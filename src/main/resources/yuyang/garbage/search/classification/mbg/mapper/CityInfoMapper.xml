@@ -75,11 +75,12 @@
     <if test="distinct">
       distinct
     </if>
-    <include refid="Base_Column_List" />
+    city,city_code, province, district, opend
     from city_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+    group by city
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>

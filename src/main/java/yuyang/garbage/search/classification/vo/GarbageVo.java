@@ -28,4 +28,10 @@ public class GarbageVo {
 
     @ApiModelProperty(value = "搜索次数（查询用）")
     private Integer searchNum;
+
+    @ApiModelProperty(value = "每页显示条数")
+    private Integer pageSize;
+
+    @ApiModelProperty(value = "页数")
+    private Integer pageNum;
 }
