@@ -75,7 +75,7 @@
     <if test="distinct">
       distinct
     </if>
-    city,city_code, province, district, opend
+    id,city,city_code, province, district, opend
     from city_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
