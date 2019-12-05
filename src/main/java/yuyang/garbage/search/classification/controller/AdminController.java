@@ -1,5 +1,9 @@
 package yuyang.garbage.search.classification.controller;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.EasyExcelFactory;
+import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -18,10 +22,15 @@ import yuyang.garbage.search.classification.service.CityService;
 import yuyang.garbage.search.classification.service.GarbageService;
 import yuyang.garbage.search.classification.service.HotTopService;
 import yuyang.garbage.search.classification.util.CommonResult;
+import yuyang.garbage.search.classification.util.TestFileUtil;
 import yuyang.garbage.search.classification.vo.CityParam;
 import yuyang.garbage.search.classification.vo.GarbageParam;
 import yuyang.garbage.search.classification.vo.GarbageVo;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -253,5 +262,26 @@ public class AdminController {
     public CommonResult<Integer> openCity(@RequestBody CityParam cityParam) {
         log.info("admin open city parms is " + JSON.toJSONString(cityParam));
         return CommonResult.success(cityService.open(cityParam));
+    }
+
+    @ApiOperation("城市导出 /admin/cityDownload?cityName=")
+    @RequestMapping(value = "/admin/cityDownload", method = RequestMethod.GET)
+    @ResponseBody
+    public void cityDownload(HttpServletResponse response, HttpServletRequest request) throws Exception {
+        String cityName = request.getParameter("cityName");
+        log.info("admin download city parms is " + cityName);
+        List<CityInfo> search = cityService.search(cityName);
+        search.forEach(cityInfo -> cityInfo.setDistrict(cityInfo.getOpend() == 1 ? "是" : "否"));
+        // 写法1
+        /*String fileName = TestFileUtil.getPath() + "simpleWrite" + System.currentTimeMillis() + ".xlsx";
+        // 这里 需要指定写用哪个class去读，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
+        // 如果这里想使用03 则 传入excelType参数即可
+        EasyExcel.write(fileName, CityInfo.class).sheet("城市信息").doWrite(search);*/
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+        String fileName = URLEncoder.encode("城市信息", "UTF-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        EasyExcel.write(response.getOutputStream(), CityInfo.class).sheet("城市信息").doWrite(search);
     }
 }
